@@ -101,7 +101,7 @@ function App() {
     const name = fileSelectRef.current.value;
     setFiles(prev => {
       const data = [...prev, {
-        url: '/public/video/' + name,
+        url: '/video/' + name,
         id: crypto.randomUUID(),
         type: 'video' as const
       }];
@@ -162,6 +162,7 @@ function App() {
         <h3>再生する</h3>
           <button onClick={play('primary')}>Play on Primary Window</button>
           <button onClick={play('secondary')}>Play on Secondary Window</button>
+          <a href={`/player.html?senario=${JSON.stringify(files)}`} target="_blank">Open New Tab</a>
       </section>
     </div>
   )

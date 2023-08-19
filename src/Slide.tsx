@@ -27,13 +27,17 @@ export const Slide = () => {
   }, [])
 
   const [data, setData] = useState<ApiResponse>();
+  const [updatekey, setUpdatekey] = useState<number>();
   useEffect(() => {
     (async () => {
       const res = await fetch(endpoint);
       const json = await res.json() as ApiResponse;
       setData(json);
+      setTimeout(() => {
+        setUpdatekey(Math.random())
+      }, 30 * 1000);
     })()
-  }, [])
+  }, [updatekey])
 
   return <section style={{
     backgroundImage: `url(${background})`,
@@ -58,10 +62,35 @@ export const Slide = () => {
           }
         </ul>
       </div> : <div style={{padding: '0 10vw', fontSize: '3em', lineHeight: '1.1em', textAlign: 'left'}}>
-          <h3>{data?.timetable.lt.time}: {data?.timetable.lt.title}</h3>
-          <h4>{data?.timetable.lt.speaker}</h4>
-          <h3>{data?.timetable.talk.time}: {data?.timetable.talk.title}</h3>
-          <h4>{data?.timetable.talk.speaker}</h4>
+        <table>
+          <tr>
+            <td>{data?.timetable.lt.time}</td>
+            <td style={{paddingLeft: '3vw', fontWeight: 'bold', color: '#ff882b'}}>{data?.timetable.lt.title}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style={{paddingLeft: '3vw'}}>{data?.timetable.lt.speaker}</td>
+          </tr>
+          <tr>
+            <td>{data?.timetable.talk.time}</td>
+            <td style={{paddingLeft: '3vw', fontWeight: 'bold', color: '#ff882b'}}>{data?.timetable.talk.title}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td style={{paddingLeft: '3vw'}}>{data?.timetable.talk.speaker}</td>
+          </tr>
+        </table>
+        <style>
+          {`
+          table {
+            margin-top: 10vh;
+            line-height: 1.5em;
+          }
+          table td {
+            vertical-align: top;
+          }
+          `}
+        </style>
       </div>
     }
   </section>
