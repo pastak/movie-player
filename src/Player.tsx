@@ -33,7 +33,7 @@ export const Player = () => {
             }
         } catch {}
       } else {
-        window.setTimeout(next, 20 * 1000);
+        window.setTimeout(next, 12 * 1000);
       }
   }, [currentIndex]);
   
