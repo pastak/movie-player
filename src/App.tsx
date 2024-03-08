@@ -144,8 +144,11 @@ function App() {
             <option value='brand.mp4'>brand.mp4</option>
             <option value='minna_no_market.mp4'>minna_no_market.mp4</option>
             <option value='raksul.mp4'>raksul.mp4</option>
-            <option value='recruit.mp4'>recruit.mp4</option>
+            <option value='nishiyama-interview.mp4'>nishiyama-interview.mp4</option>
+            <option value='pastak-interview.mp4'>pastak-interview.mp4</option>
+            <option value='daiiz-interview.mp4'>daiiz-interview.mp4</option>
             <option value='siroca.mp4'>siroca.mp4</option>
+            <option value='TechConfAfterMovie.mp4'>TechConfAfterMovie.mp4</option>
           </select>
           <button>追加</button>
         </form>
