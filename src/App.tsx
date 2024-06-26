@@ -143,7 +143,6 @@ function App() {
             <option value='NEWTON.mp4'>NEWTON.mp4</option>
             <option value='brand.mp4'>brand.mp4</option>
             <option value='minna_no_market.mp4'>minna_no_market.mp4</option>
-            <option value='raksul.mp4'>raksul.mp4</option>
             <option value='nishiyama-interview.mp4'>nishiyama-interview.mp4</option>
             <option value='pastak-interview.mp4'>pastak-interview.mp4</option>
             <option value='daiiz-interview.mp4'>daiiz-interview.mp4</option>
