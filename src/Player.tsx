@@ -7,6 +7,7 @@ export const Player = () => {
   const senario = useMemo(() => {
     const senarioJson = params.get('senario');
     let senario: FileInfo[];
+    console.log(senarioJson)
     try {
       if (!senarioJson) return null;
       senario = JSON.parse(senarioJson) as FileInfo[];
@@ -32,7 +33,7 @@ export const Player = () => {
             }
         } catch {}
       } else {
-        window.setTimeout(next, 15 * 1000);
+        window.setTimeout(next, 12 * 1000);
       }
   }, [currentIndex]);
   

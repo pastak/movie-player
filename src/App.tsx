@@ -94,11 +94,67 @@ function App() {
     return data;
   })
 
+  const fileSelectRef = useRef<HTMLSelectElement>(null);
+  const handleSelectFile = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!fileSelectRef.current) return;
+    const name = fileSelectRef.current.value;
+    setFiles(prev => {
+      const data = [...prev, {
+        url: '/video/' + name,
+        id: crypto.randomUUID(),
+        type: 'video' as const
+      }];
+      localStorage.setItem('data', JSON.stringify(data));
+      return data;
+    })
+  }
+  const handleInsertNotice = (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    setFiles(prev => {
+      const data = [...prev, {
+        url: encodeURIComponent('/slide.html?type=notice&number=0'),
+        id: crypto.randomUUID(),
+        type: 'website' as const
+      },{
+        url: encodeURIComponent('/slide.html?type=notice&number=1'),
+        id: crypto.randomUUID(),
+        type: 'website' as const
+      },{
+        url: encodeURIComponent('/slide.html?type=timetable'),
+        id: crypto.randomUUID(),
+        type: 'website' as const
+      }];
+      localStorage.setItem('data', JSON.stringify(data));
+      return data;
+    })
+  }
+
   return (
     <div className="App">
       <section>
         <h3>ファイルを登録する</h3>
         <input type='file' multiple onChange={onChangeFiles}/>
+        <h3>
+          保存済みのファイルを登録する
+        </h3>
+        <form onSubmit={handleSelectFile}>
+          <select ref={fileSelectRef}>
+            <option value='NEWTON.mp4'>NEWTON.mp4</option>
+            <option value='brand.mp4'>brand.mp4</option>
+            <option value='minna_no_market.mp4'>minna_no_market.mp4</option>
+            <option value='raksul.mp4'>raksul.mp4</option>
+            <option value='nishiyama-interview.mp4'>nishiyama-interview.mp4</option>
+            <option value='pastak-interview.mp4'>pastak-interview.mp4</option>
+            <option value='daiiz-interview.mp4'>daiiz-interview.mp4</option>
+            <option value='siroca.mp4'>siroca.mp4</option>
+            <option value='help-ape01.mp4'>help-ape01.mp4</option>
+            <option value='help-ape-EC.mp4'>help-ape-EC.mp4</option>
+          </select>
+          <button>追加</button>
+        </form>
+        <h3>お知らせを挿入する</h3>
+        <button onClick={handleInsertNotice}>挿入する</button>
         <h3>URLを登録する</h3>
         <form onSubmit={onTextEnter}><input type='text' ref={textRef}/></form>
         <h3>登録されたコンテンツ一覧</h3>
@@ -110,6 +166,7 @@ function App() {
         <h3>再生する</h3>
           <button onClick={play('primary')}>Play on Primary Window</button>
           <button onClick={play('secondary')}>Play on Secondary Window</button>
+          <a href={`/player.html?senario=${JSON.stringify(files)}`} target="_blank">Open New Tab</a>
       </section>
     </div>
   )
