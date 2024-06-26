@@ -148,7 +148,8 @@ function App() {
             <option value='pastak-interview.mp4'>pastak-interview.mp4</option>
             <option value='daiiz-interview.mp4'>daiiz-interview.mp4</option>
             <option value='siroca.mp4'>siroca.mp4</option>
-            <option value='TechConfAfterMovie.mp4'>TechConfAfterMovie.mp4</option>
+            <option value='help-ape01.mp4'>help-ape01.mp4</option>
+            <option value='help-ape-EC.mp4'>help-ape-EC.mp4</option>
           </select>
           <button>追加</button>
         </form>
