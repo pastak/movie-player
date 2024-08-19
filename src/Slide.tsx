@@ -2,19 +2,26 @@ import React from "react";
 import { useEffect, useMemo, useState } from "react";
 import background from './assets/background.png';
 
-const endpoint = 'https://script.google.com/macros/s/AKfycbzp9g8U0v3c725g04DpNEHL0tkGKjiQEQgGbZ9Op6JWdqokNpPfZ-7glvpxpKGO0mlx/exec'
+const endpoint = 'https://script.google.com/macros/s/AKfycbz0YX57gmf55Ohxre122XtmDA0Es9tiSyaGPSWod9JcIoXqSEPui8GQzMry0P11ScqB/exec'
+
+type Content = Readonly<{
+  start?: string,
+  end?: string,
+  title?: string,
+  speaker?: string,
+}>
 
 type ApiResponse = Readonly<{
   notice: [string[], string[], string[]],
   timetable: {
-    lt: {time: string, title: string, speaker: string},
-    talk: {time: string, title: string, speaker: string}
+    a: [Content, Content, Content],
+    b: [Content, Content, Content],
   }
 }>
 
 const heading = {
   notice: '来場者の皆さまへ',
-  timetable: 'Coming Up Next'
+  timetable: 'このあとのスケジュール'
 }
 
 export const Slide = () => {
@@ -39,18 +46,22 @@ export const Slide = () => {
     })()
   }, [updatekey])
 
+  const trackA = data?.timetable.a.filter(({title}) => !!title)
+  const trackB = data?.timetable.b.filter(({title}) => !!title)
+
   return <section style={{
     backgroundImage: `url(${background})`,
     backgroundSize: 'cover',
     width: '100vw',
     height: '100vh',
-    color: 'white'
+    color: 'black'
   }}>
     <h1 style={{
-      paddingTop: '12vh',
+      paddingTop: '10vh',
+      paddingLeft: '8vw',
       margin: 0,
-      textAlign: 'center',
-      fontSize: '4.2em'
+      textAlign: 'left',
+      fontSize: '4.5vw'
     }}>
       {heading[type]}
     </h1>
@@ -61,36 +72,33 @@ export const Slide = () => {
             data?.notice[num].map((s) => <li>{s}</li>)
           }
         </ul>
-      </div> : <div style={{padding: '0 10vw', fontSize: '3em', lineHeight: '1.1em', textAlign: 'left'}}>
-        <table>
-          <tr>
-            <td>{data?.timetable.lt.time}</td>
-            <td style={{paddingLeft: '3vw', fontWeight: 'bold', color: '#ff882b'}}>{data?.timetable.lt.title}</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td style={{paddingLeft: '3vw'}}>{data?.timetable.lt.speaker}</td>
-          </tr>
-          <tr>
-            <td>{data?.timetable.talk.time}</td>
-            <td style={{paddingLeft: '3vw', fontWeight: 'bold', color: '#ff882b'}}>{data?.timetable.talk.title}</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td style={{paddingLeft: '3vw'}}>{data?.timetable.talk.speaker}</td>
-          </tr>
-        </table>
-        <style>
-          {`
-          table {
-            margin-top: 10vh;
-            line-height: 1.5em;
-          }
-          table td {
-            vertical-align: top;
-          }
-          `}
-        </style>
+      </div> : <div className='timetable' style={{padding: '0 10vw', fontSize: '3em', lineHeight: '1.1em', textAlign: 'left'}}>
+        {
+          !!trackA?.length && <>
+            <h3>Track A</h3>
+            <table>
+              {
+                trackA.map(({start, end, title, speaker}) => <tr>
+                  <td>{start} - {end}</td><td> <strong>{title}</strong> by {speaker}</td>
+                </tr>)
+              }
+            </table>
+          </>
+        }
+        {
+          !!trackB?.length && <>
+            <h3 style={{
+              marginTop: '0.5vh'
+            }}>Track B</h3>
+            <table>
+              {
+                trackB.map(({start, end, title, speaker}) => <tr>
+                  <td>{start} - {end}</td><td> <strong>{title}</strong> by {speaker}</td>
+                </tr>)
+              }
+            </table>
+          </>
+        }
       </div>
     }
   </section>
