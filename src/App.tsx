@@ -16,7 +16,7 @@ const Preview: React.FC<{
       if (e.currentTarget.error?.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
         deleteFile()
       }
-    }} />
+    }} muted autoPlay />
   } else {
     return <span>{file.url}</span>
   }
@@ -149,6 +149,9 @@ function App() {
             <option value='siroca.mp4'>siroca.mp4</option>
             <option value='help-ape01.mp4'>help-ape01.mp4</option>
             <option value='help-ape-EC.mp4'>help-ape-EC.mp4</option>
+            <option value='helpfeel-com-op-info.mp4'>helpfeel-com-op-info.mp4</option>
+            <option value='Helpfeel_community_digest_1027.mp4'>Helpfeel_community_digest_1027.mp4</option> 
+            <option value='techconf2024-coming.mp4'>techconf2024-coming.mp4</option>
           </select>
           <button>追加</button>
         </form>
@@ -159,7 +162,14 @@ function App() {
         <h3>登録されたコンテンツ一覧</h3>
         <ol>
         {
-          files.map((file) => <li key={file.id}><Preview file={file} deleteFile={generateDeleteFunc(file.id)} /><button onClick={generateDeleteFunc(file.id)}>Delete</button></li>)
+          files.map((file) => <li key={file.id}>
+            <Preview file={file} deleteFile={generateDeleteFunc(file.id)} />
+            <span>{
+            // @ts-expect-error
+            URL.parse(location.origin + file.url)?.pathname.split('/').pop() ?? ''
+            }</span>
+            <button onClick={generateDeleteFunc(file.id)}>Delete</button>
+          </li>)
         }
         </ol>
         <h3>再生する</h3>
