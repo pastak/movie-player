@@ -64,7 +64,7 @@ function App() {
           `resizable=yes`,
           `scrollbars=no`
         ].join(",");
-        const w = window.open(`/player.html?senario=${JSON.stringify(files)}`, Math.random().toString(), features);
+        const w = window.open(`/movie-player/player.html?senario=${JSON.stringify(files)}`, Math.random().toString(), features);
         setWindowProxy(w);
       }
     } catch {
@@ -116,15 +116,35 @@ function App() {
     e.preventDefault()
     setFiles(prev => {
       const data = [...prev, {
-        url: encodeURIComponent('/slide.html?type=notice&number=0'),
+        url: encodeURIComponent('/movie-player/slide.html?type=notice&number=0'),
         id: crypto.randomUUID(),
         type: 'website' as const
       },{
-        url: encodeURIComponent('/slide.html?type=notice&number=1'),
+        url: encodeURIComponent('/movie-player/slide.html?type=notice&number=1'),
         id: crypto.randomUUID(),
         type: 'website' as const
       },{
-        url: encodeURIComponent('/slide.html?type=timetable'),
+        url: encodeURIComponent('/movie-player/slide.html?type=timetable'),
+        id: crypto.randomUUID(),
+        type: 'website' as const
+      }];
+      localStorage.setItem('data', JSON.stringify(data));
+      return data;
+    })
+  }
+  const handleInsertSponsors = (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    setFiles(prev => {
+      const data = [...prev, {
+        url: encodeURIComponent('/movie-player/sponsor.html?type=Matz'),
+        id: crypto.randomUUID(),
+        type: 'website' as const
+      },{
+        url: encodeURIComponent('/movie-player/sponsor.html?type=Take'),
+        id: crypto.randomUUID(),
+        type: 'website' as const
+      },{
+        url: encodeURIComponent('/movie-player/sponsor.html?type=Ume'),
         id: crypto.randomUUID(),
         type: 'website' as const
       }];
@@ -165,6 +185,8 @@ function App() {
         </form>
         <h3>お知らせを挿入する</h3>
         <button onClick={handleInsertNotice}>挿入する</button>
+        <h3>スポンサー表示を挿入する</h3>
+        <button onClick={handleInsertSponsors}>挿入する</button>
         <h3>URLを登録する</h3>
         <form onSubmit={onTextEnter}><input type='text' ref={textRef}/></form>
         <h3>登録されたコンテンツ一覧</h3>
@@ -183,7 +205,7 @@ function App() {
         <h3>再生する</h3>
           <button onClick={play('primary')}>Play on Primary Window</button>
           <button onClick={play('secondary')}>Play on Secondary Window</button>
-          <a href={`/player.html?senario=${JSON.stringify(files)}`} target="_blank">Open New Tab</a>
+          <a href={`/movie-player/player.html?senario=${JSON.stringify(files)}`} target="_blank">Open New Tab</a>
       </section>
       {
         windowProxy && <section>

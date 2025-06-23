@@ -1,8 +1,9 @@
 import React from "react";
 import { useEffect, useMemo, useState } from "react";
 import background from './assets/background.png';
+import logo from './assets/kanrb08.svg';
 
-const endpoint = 'https://script.google.com/macros/s/AKfycbz0YX57gmf55Ohxre122XtmDA0Es9tiSyaGPSWod9JcIoXqSEPui8GQzMry0P11ScqB/exec'
+const endpoint = 'https://script.google.com/macros/s/AKfycbxT-x70e0ZKzDWAY8EN0zBqCL5jr8eOPBYazA30E8UvoQSmkbBz8VbvYgmJeY01UrL5oQ/exec'
 
 type Content = Readonly<{
   start?: string,
@@ -50,14 +51,16 @@ export const Slide = () => {
   const trackB = data?.timetable.b.filter(({title}) => !!title)
 
   return <section style={{
-    backgroundImage: `url(${background})`,
-    backgroundSize: 'cover',
+    // backgroundImage: `url(${background})`,
+    // backgroundSize: 'cover',
     width: '100vw',
     height: '100vh',
-    color: 'black'
+    backgroundColor: 'rgb(246,246,246)',
+    color: 'black',
+    borderTop: '4vh solid rgb(112,0,2)'
   }}>
     <h1 style={{
-      paddingTop: '10vh',
+      paddingTop: '6vh',
       paddingLeft: '8vw',
       margin: 0,
       textAlign: 'left',
@@ -74,14 +77,13 @@ export const Slide = () => {
             )
           }
         </ul>
-      </div> : <div className='timetable' style={{padding: '0 10vw', fontSize: '3em', lineHeight: '1.1em', textAlign: 'left'}}>
+      </div> : <div className='timetable' style={{padding: '5vh 10vw', fontSize: '5em', lineHeight: '1.1em', textAlign: 'left'}}>
         {
           !!trackA?.length && <>
-            <h3>Track A</h3>
             <table>
               {
                 trackA.map(({start, end, title, speaker}) => <tr>
-                  <td>{start} - {end}</td><td> <strong>{title}</strong> by {speaker}</td>
+                  <td>{start} - {end}</td><td> <strong>{title}</strong> {speaker ? ` by ${speaker}` : ''}</td>
                 </tr>)
               }
             </table>
@@ -103,5 +105,16 @@ export const Slide = () => {
         }
       </div>
     }
+    <footer style={{
+      background: 'rgb(112,0,2)',
+      height: '8vh',
+      position: 'fixed',
+      bottom: 0,
+      width: '100vw',
+      textAlign: 'left',
+      paddingLeft: '1vw',
+      display: 'flex',
+      alignItems: 'center'
+    }}><img src={logo} style={{height: '6vh'}} /></footer>
   </section>
 }

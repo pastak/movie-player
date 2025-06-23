@@ -34,7 +34,15 @@ export const Player = () => {
             }
         } catch {}
       } else {
-        window.setTimeout(next, 12 * 1000);
+        const defaultDisplayDurationSec = 12;
+        const durationSec = target.type === 'website' 
+          ? target.url.includes('sponsor.html') ? 
+            target.url.includes('Matz') ? 12 :
+            target.url.includes("Take") ? 10 : 
+            8 
+          :defaultDisplayDurationSec
+        : defaultDisplayDurationSec 
+        window.setTimeout(next, durationSec * 1000);
       }
   }, [currentIndex]);
 
