@@ -69,7 +69,9 @@ export const Slide = () => {
       type === 'notice' ? <div style={{padding: '0 10vw', fontSize: '3em', lineHeight: '1.8em'}}>
         <ul style={{textAlign: 'left'}}>
           {
-            data?.notice[num].map((s) => <li>{s}</li>)
+            data?.notice[num].map((s) => 
+              s.includes('gyazo.com') ? <img style={{width: '20%'}} src={s + '/raw'} /> :<li>{s}</li>
+            )
           }
         </ul>
       </div> : <div className='timetable' style={{padding: '0 10vw', fontSize: '3em', lineHeight: '1.1em', textAlign: 'left'}}>
