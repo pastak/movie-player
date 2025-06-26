@@ -12,7 +12,8 @@ export default defineConfig({
         player: 'player.html',
         videoWithNotice: 'video-with-notice.html',
         slide: 'slide.html',
-        sponsor: 'sponsor.html'
+        sponsor: 'sponsor.html',
+        futa: 'futa.html',
       }
     }
   }

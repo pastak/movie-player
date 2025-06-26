@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FileInfo } from "./libs/files";
-import futa from './assets/kanrk-futa.png';
+
+const futa = '/movie-player/futa.html';
 
 export const Player = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -104,6 +105,7 @@ export const Player = () => {
   return <>
     {
       senario.map((target, index) => {
+        if (target.type === 'futa') return null;
         const commonProps = {
           src: target.url,
           key: target.id,
@@ -131,6 +133,6 @@ export const Player = () => {
     {
       injected.current === 'video' && forcedVideoUrl && <video key='injected-video' onCanPlay={loadInjected} src={forcedVideoUrl} style={{width: '100vw', height: '100vh', display: 'block'}} />
     }
-      <img key='injected-futa' src={futa} style={{width: '100vw', height: '100vh', display: injected.current === 'futa' ? 'block' : 'none'}} />
+      <iframe key='futa' src={futa} style={{width: '100vw', height: '100vh', display: injected.current === 'futa' || senario[currentIndex].type === 'futa' ? 'block' : 'none'}} />
   </>
 }

@@ -17,7 +17,9 @@ const Preview: React.FC<{
         deleteFile()
       }
     }} muted autoPlay />
-  } else {
+  } else if (file.type ==='futa') {
+    return <span>蓋ページ</span>
+  }else {
     return <span>{file.url}</span>
   }
 }
@@ -187,6 +189,15 @@ function App() {
         <button onClick={handleInsertNotice}>挿入する</button>
         <h3>スポンサー表示を挿入する</h3>
         <button onClick={handleInsertSponsors}>挿入する</button>
+        <h3>蓋画像を表示する</h3>
+        <button onClick={() => setFiles(prev => {
+          const data = [...prev, {
+            id: crypto.randomUUID(),
+            type: 'futa' as const
+          }];
+          localStorage.setItem('data', JSON.stringify(data));
+          return data;
+        })}>蓋画像を追加</button>
         <h3>URLを登録する</h3>
         <form onSubmit={onTextEnter}><input type='text' ref={textRef}/></form>
         <h3>登録されたコンテンツ一覧</h3>
