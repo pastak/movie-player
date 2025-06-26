@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FileInfo } from "./libs/files";
-import futa from './assets/techconf2024.png';
+import futa from './assets/kanrk-futa.png';
 
 export const Player = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
