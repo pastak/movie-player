@@ -64,7 +64,8 @@ function App() {
           `location=no`,
           `status=no`,
           `resizable=yes`,
-          `scrollbars=no`
+          `scrollbars=no`,
+          'fullscreen',
         ].join(",");
         const w = window.open(`/movie-player/player.html?senario=${JSON.stringify(files)}`, Math.random().toString(), features);
         setWindowProxy(w);
