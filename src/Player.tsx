@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FileInfo } from "./libs/files";
+import { baseUrl } from "./libs/baseUrl";
 
-const futa = '/movie-player/futa.html';
+const futa = `${baseUrl}futa.html`;
 
 export const Player = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
