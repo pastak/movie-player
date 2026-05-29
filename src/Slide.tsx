@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import background from './assets/background.png';
 import logo from './assets/kanrb08.svg';
 
-const endpoint = 'https://script.google.com/macros/s/AKfycbxT-x70e0ZKzDWAY8EN0zBqCL5jr8eOPBYazA30E8UvoQSmkbBz8VbvYgmJeY01UrL5oQ/exec'
+const endpoint = 'https://script.google.com/macros/s/AKfycbyGGn8X5HhI5AjUTe9JjvJv80XOSQdDCK3-S5JRGcfcVz_9K2Dhrbxhg-IyGYagpnrV/exec'
 
 type Content = Readonly<{
   start?: string,
