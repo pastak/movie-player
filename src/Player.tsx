@@ -134,6 +134,6 @@ export const Player = () => {
     {
       injected.current === 'video' && forcedVideoUrl && <video key='injected-video' onCanPlay={loadInjected} src={forcedVideoUrl} style={{width: '100vw', height: '100vh', display: 'block'}} />
     }
-      <iframe key='futa' src={futa} style={{width: '100vw', height: '100vh', display: injected.current === 'futa' || senario[currentIndex].type === 'futa' ? 'block' : 'none'}} />
+      <iframe key='futa' src={futa} style={{width: '100vw', height: '100vh', display: injected.current === 'futa' || senario[currentIndex]?.type === 'futa' ? 'block' : 'none'}} />
   </>
 }
