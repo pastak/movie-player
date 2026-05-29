@@ -78,11 +78,11 @@ export const Player = () => {
       if (event.data.action === 'reload') {
         location.reload();
       } else if (event.data.action === 'injection') {
-        const video = `/techconf/${event.data.file}.mp4`
         const target = senario[currentIndex];
         if (target.type === 'video') {
           stopVideo(target.id);
         }
+        const video = injected.current === 'video' ? null : event.data.file;
         injected.current = 'video';
         setForcedVideoUrl(video);
       } else if (event.data.action === 'futa') {

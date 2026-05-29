@@ -46,6 +46,7 @@ function App() {
   const [windowProxy, setWindowProxy] = useState<WindowProxy | null>(null);
 
   const play = (type: 'primary' | 'secondary') => async () => {
+    console.log('play', type)
     try {
       const state = await getWindowManagementPermissionState();
       if (state === 'granted') {
@@ -70,8 +71,10 @@ function App() {
         ].join(",");
         const w = window.open(`${baseUrl}player.html?senario=${JSON.stringify(files)}`, Math.random().toString(), features);
         setWindowProxy(w);
+        console.log(w)
       }
-    } catch {
+    } catch (e) {
+      console.error(e)
       // nothing
     }
   }
@@ -216,7 +219,7 @@ function App() {
         }
         </ol>
         <h3>再生する</h3>
-          <button onClick={play('primary')}>Play on Primary Window</button>
+          <button onClick={play('primary') || (() => console.log('aaaa'))}>Play on Primary Window</button>
           <button onClick={play('secondary')}>Play on Secondary Window</button>
           <a href={`${baseUrl}player.html?senario=${JSON.stringify(files)}`} target="_blank">Open New Tab</a>
       </section>
@@ -226,6 +229,10 @@ function App() {
           <button onClick={() => windowProxy.postMessage({action: 'futa'})}>蓋画像を表示する</button>
           <button onClick={() => windowProxy.postMessage({action: 'default'})}>動画ループに戻す</button>
           <button onClick={() => windowProxy.postMessage({action: 'reload'})}>再読み込み</button>
+          <hr />
+          <button onClick={() => windowProxy.postMessage({
+            action: 'injection', file: 'https://gyazo.com/bda029a62cbacaa2b36542a94110ba08/raw'
+            })}>蓋動画を流す</button>
         </section>
       }
     </div>
