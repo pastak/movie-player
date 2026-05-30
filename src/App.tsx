@@ -144,18 +144,24 @@ function App() {
     e.preventDefault()
     setFiles(prev => {
       const data = [...prev, {
-        url: encodeURIComponent(`${baseUrl}sponsor.html?type=Matz`),
+        url: 'https://i.gyazo.com/8def829ad21e558068bc068a523df55c.mp4',
         id: crypto.randomUUID(),
-        type: 'website' as const
-      },{
-        url: encodeURIComponent(`${baseUrl}sponsor.html?type=Take`),
-        id: crypto.randomUUID(),
-        type: 'website' as const
-      },{
-        url: encodeURIComponent(`${baseUrl}sponsor.html?type=Ume`),
-        id: crypto.randomUUID(),
-        type: 'website' as const
+        type: 'video' as const
       }];
+    // setFiles(prev => {
+    //   const data = [...prev, {
+    //     url: encodeURIComponent(`${baseUrl}sponsor.html?type=Matz`),
+    //     id: crypto.randomUUID(),
+    //     type: 'website' as const
+    //   },{
+    //     url: encodeURIComponent(`${baseUrl}sponsor.html?type=Take`),
+    //     id: crypto.randomUUID(),
+    //     type: 'website' as const
+    //   },{
+    //     url: encodeURIComponent(`${baseUrl}sponsor.html?type=Ume`),
+    //     id: crypto.randomUUID(),
+    //     type: 'website' as const
+    //   }];
       localStorage.setItem('data', JSON.stringify(data));
       return data;
     })
