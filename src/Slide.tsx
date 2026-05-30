@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useMemo, useState } from "react";
-import background from './assets/background.png';
-import logo from './assets/kanrb08.svg';
+// import background from './assets/background.png';
+import logo from './assets/footer.png';
 
 const endpoint = 'https://script.google.com/macros/s/AKfycbyGGn8X5HhI5AjUTe9JjvJv80XOSQdDCK3-S5JRGcfcVz_9K2Dhrbxhg-IyGYagpnrV/exec'
 
@@ -51,14 +51,22 @@ export const Slide = () => {
   const trackB = data?.timetable.b.filter(({title}) => !!title)
 
   return <section style={{
-    // backgroundImage: `url(${background})`,
-    // backgroundSize: 'cover',
+    background: 'url(https://i.gyazo.com/5b8ba42f3bf792d4f9df582f94664431.png) no-repeat center',
+    backgroundSize: 'cover',
     width: '100vw',
     height: '100vh',
-    backgroundColor: 'rgb(246,246,246)',
     color: 'black',
-    borderTop: '4vh solid rgb(112,0,2)'
+    paddingTop: '4vh'
   }}>
+    <div
+      style={{
+        background: 'white',
+        width: '95vw',
+        minHeight: '80vh',
+        margin: 'auto',
+        borderRadius: '30px',
+      }}
+    >
     <h1 style={{
       paddingTop: '6vh',
       paddingLeft: '8vw',
@@ -105,16 +113,15 @@ export const Slide = () => {
         }
       </div>
     }
+    </div>
     <footer style={{
-      background: 'rgb(112,0,2)',
-      height: '8vh',
+      // background: 'url(https://i.gyazo.com/5b8ba42f3bf792d4f9df582f94664431.png) no-repeat center',
       position: 'fixed',
       bottom: 0,
       width: '100vw',
       textAlign: 'left',
-      paddingLeft: '1vw',
       display: 'flex',
       alignItems: 'center'
-    }}><img src={logo} style={{height: '6vh'}} /></footer>
+    }}><img src={logo} style={{width: '100vw'}} /></footer> 
   </section>
 }

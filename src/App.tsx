@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import './App.css'
 import { FileInfo } from './libs/files'
 import { getWindowManagementPermissionState } from './libs/multiWindow'
@@ -27,6 +27,7 @@ const Preview: React.FC<{
 
 function App() {
   const [files, setFiles] = useState<FileInfo[]>(JSON.parse(localStorage.getItem('data') || '[]') || []);
+  const [attackWithVideo, setAttackWithVideo] = useState(false);
 
   const onChangeFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -160,6 +161,14 @@ function App() {
     })
   }
 
+  const attackRef = useRef<HTMLAudioElement>(null);
+  const playAttackIfNeed = useCallback(() => {
+    if (attackWithVideo && attackRef.current) {
+      attackRef.current.currentTime = 0;
+      attackRef.current.play();
+    }
+  }, [attackWithVideo])
+
   return (
     <div className="App">
       <section>
@@ -230,9 +239,66 @@ function App() {
           <button onClick={() => windowProxy.postMessage({action: 'default'})}>動画ループに戻す</button>
           <button onClick={() => windowProxy.postMessage({action: 'reload'})}>再読み込み</button>
           <hr />
-          <button onClick={() => windowProxy.postMessage({
-            action: 'injection', file: 'https://gyazo.com/bda029a62cbacaa2b36542a94110ba08/raw'
-            })}>蓋動画を流す</button>
+          <h3>Opening</h3>
+          <audio controls src="/op.mp3" />
+          <h3>Attack</h3>
+          <audio controls src="/attack.mp3" ref={attackRef} />
+          <p>
+            <label>
+            <input type="checkbox" onChange={(e) => setAttackWithVideo(e.target.checked)} checked={attackWithVideo} />
+            映像開始と同時にアタックを流す
+            </label>
+          </p>
+          <hr />
+          <h3>東軍</h3>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/5e3312d0ae86792972e15cb2a578115d.mp4'
+            }); playAttackIfNeed();}}>イントロ</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/6baa4154bf687d55af9f7e2ae7c40a9e.mp4'
+            }); playAttackIfNeed();}}>先鋒 kazzix</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/6eeec90ba57dc714b53d51a16d706562.mp4'
+            }); playAttackIfNeed();}}>次鋒 chobishiba</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/8d56119d6ffa3b5456d2a6c82eb93587.mp4'
+            }); playAttackIfNeed();}}>中堅 toshio maki</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/cbd778c17ea34caaba09934a0ffe91ec.mp4'
+            }); playAttackIfNeed();}}>副将 kinoppyd</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/631d9b0b459a52dd215bb9500375612c.mp4'
+            }); playAttackIfNeed();}}>大将 ko1</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/3fe668d624cf586724b3c707e1e37272.mp4'
+            }); playAttackIfNeed();}}>東軍出陣</button>
+          <hr />
+          <h3>西軍</h3>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/48dd08fda6949326ed55eb55470cca64.mp4'
+            }); playAttackIfNeed();}}>イントロ</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/86ed9219806ac187f0dd277f34b92a50.mp4'
+            }); playAttackIfNeed();}}>先鋒 森塚</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/9ebcb9deebb1105e2f00b2faa45136b6.mp4'
+            }); playAttackIfNeed();}}>次鋒 S.H.</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/96a39c46624995efa4d775d2a800dd8a.mp4'
+            }); playAttackIfNeed();}}>中堅 pocke</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/0da8316f149071619ab8123fcacee8d2.mp4'
+            }); playAttackIfNeed();}}>副将 hasumikin</button>
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/3cd4e200a43e8e64eeb613a1a17d5fcb.mp4'
+            }); playAttackIfNeed();}}>大将 shugo</button>
+            <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/16a008edd5f4b9a352f8f0b0420941c6.mp4'
+            }); playAttackIfNeed();}}>西軍出陣</button>
+          <hr />
+          <button onClick={() => {windowProxy.postMessage({
+            action: 'injection', file: 'https://i.gyazo.com/bda029a62cbacaa2b36542a94110ba08.mp4'
+            }); playAttackIfNeed();}}>まつもとさん開戦</button>
         </section>
       }
     </div>

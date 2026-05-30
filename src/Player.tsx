@@ -59,7 +59,7 @@ export const Player = () => {
         injected.current = null;
         setForcedVideoUrl(null);
         next();
-      }, 10 * 1000)
+      }, 100 * 1000)
     }
   }
 
@@ -82,7 +82,8 @@ export const Player = () => {
         if (target.type === 'video') {
           stopVideo(target.id);
         }
-        const video = injected.current === 'video' ? null : event.data.file;
+        console.log(event.data, injected.current);
+        const video = event.data.file;
         injected.current = 'video';
         setForcedVideoUrl(video);
       } else if (event.data.action === 'futa') {
