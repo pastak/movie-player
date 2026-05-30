@@ -59,7 +59,7 @@ export const Player = () => {
         injected.current = null;
         setForcedVideoUrl(null);
         next();
-      }, 100 * 1000)
+      }, 3600 * 1000)
     }
   }
 
