@@ -77,7 +77,7 @@ export const Slide = () => {
       {heading[type]}
     </h1>
     {
-      type === 'notice' ? <div style={{padding: '0 10vw', fontSize: '3em', lineHeight: '1.8em'}}>
+      type === 'notice' ? <div style={{padding: '0 10vw', fontSize: '5em', lineHeight: '1.8em'}}>
         <ul style={{textAlign: 'left'}}>
           {
             data?.notice[num].map((s) => 
@@ -90,7 +90,12 @@ export const Slide = () => {
           !!trackA?.length && <>
             <table>
               {
-                trackA.map(({start, end, title, speaker}) => <tr>
+                trackA.map(({start, end, title, speaker}) => 
+                title === '合戦' ? 
+                <tr>
+                  <td>{start} - {end}</td><td> <strong style={{fontSize: '7em', lineHeight: '1em'}}>{title}</strong> {speaker ? ` by ${speaker}` : ''}</td>
+                </tr> : 
+                <tr>
                   <td>{start} - {end}</td><td> <strong>{title}</strong> {speaker ? ` by ${speaker}` : ''}</td>
                 </tr>)
               }
