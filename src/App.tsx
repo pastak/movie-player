@@ -220,12 +220,17 @@ function App() {
           <a href={`/movie-player/player.html?senario=${JSON.stringify(files)}`} target="_blank">Open New Tab</a>
       </section>
       {
-        windowProxy && <section>
+        windowProxy && <><section>
           <h3>画面切り替え</h3>
           <button onClick={() => windowProxy.postMessage({action: 'futa'})}>蓋画像を表示する</button>
           <button onClick={() => windowProxy.postMessage({action: 'default'})}>動画ループに戻す</button>
           <button onClick={() => windowProxy.postMessage({action: 'reload'})}>再読み込み</button>
         </section>
+      <section>
+        <h3>動画を差し替える</h3>
+        <button onClick={() => windowProxy?.postMessage({action: 'injection', url: 'https://i.gyazo.com/f26748fe9380c913ff3779f07d2ddf59.mp4'})}>1分間フィードバック</button>
+        <button onClick={() => windowProxy?.postMessage({action: 'injection', url: 'https://i.gyazo.com/0ebf06b5e7b889001f84362bbbc0085c.mp4'})}>次の会場ルーレット</button>
+      </section></> 
       }
     </div>
   )

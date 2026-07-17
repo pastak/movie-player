@@ -77,7 +77,7 @@ export const Player = () => {
       if (event.data.action === 'reload') {
         location.reload();
       } else if (event.data.action === 'injection') {
-        const video = `/techconf/${event.data.file}.mp4`
+        const video = event.data.url ?? `/techconf/${event.data.file}.mp4`
         const target = senario[currentIndex];
         if (target.type === 'video') {
           stopVideo(target.id);
