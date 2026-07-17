@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useMemo, useState } from "react";
 import background from './assets/background.png';
-import logo from './assets/kanrb08.svg';
+import logo from './assets/logo-horizontal.png';
 
 const endpoint = 'https://script.google.com/macros/s/AKfycbxT-x70e0ZKzDWAY8EN0zBqCL5jr8eOPBYazA30E8UvoQSmkbBz8VbvYgmJeY01UrL5oQ/exec'
 
@@ -57,7 +57,7 @@ export const Slide = () => {
     height: '100vh',
     backgroundColor: 'rgb(246,246,246)',
     color: 'black',
-    borderTop: '4vh solid rgb(112,0,2)'
+    borderTop: '4vh solid rgb(10,29,76)'
   }}>
     <h1 style={{
       paddingTop: '6vh',
@@ -106,7 +106,7 @@ export const Slide = () => {
       </div>
     }
     <footer style={{
-      background: 'rgb(112,0,2)',
+      background: 'rgb(10,29,76)',
       height: '8vh',
       position: 'fixed',
       bottom: 0,

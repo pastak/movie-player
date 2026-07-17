@@ -139,15 +139,15 @@ function App() {
     e.preventDefault()
     setFiles(prev => {
       const data = [...prev, {
-        url: encodeURIComponent('/movie-player/sponsor.html?type=Matz'),
+        url: encodeURIComponent('/movie-player/sponsor.html?type=Biwa'),
         id: crypto.randomUUID(),
         type: 'website' as const
       },{
-        url: encodeURIComponent('/movie-player/sponsor.html?type=Take'),
+        url: encodeURIComponent('/movie-player/sponsor.html?type=Gold'),
         id: crypto.randomUUID(),
         type: 'website' as const
       },{
-        url: encodeURIComponent('/movie-player/sponsor.html?type=Ume'),
+        url: encodeURIComponent('/movie-player/sponsor.html?type=Silver'),
         id: crypto.randomUUID(),
         type: 'website' as const
       }];

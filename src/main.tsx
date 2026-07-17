@@ -8,7 +8,6 @@ import { Slide } from './Slide'
 import { Sponsor } from './Sponsor'
 import { VideoWithNotice } from './VideoWithNotice'
 
-
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     {

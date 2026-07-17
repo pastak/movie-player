@@ -1,14 +1,14 @@
 import background from './assets/sponsor-background.png';
 const sponsors = {
-  "Matz":["smarthr.png","tebiki.png","timee.png","freee.png","knowledgelabo.png"],
-  "Take":["agileware.png","andpad.png","degica.png","esm.png","hatena.png","ingage.png","moneyforward.png","ponos.png","rubydevelopment.png","sixvox.png","stmn.png"],
-  "Ume":["aschild.png","codetakt.png","gajilabo.png","localtech.png","lokka.png","mov.png","nacl.png","tokyorubykaigi.png","twogate.png","xalpha.png","youcube.png"]
+  "Biwa":["toranoanalab.jpg"],
+  "Gold":["aschild.png","ponos.png","gajilabo.png","ivry.png","leaner.png","rubydevelopment.jpg","agileware.png","ingage.png","netprotections.png","esm.png"],
+  "Silver":["smarthr.png", "nacl.png"]
 } as const;
 
 const sizes: Record<keyof typeof sponsors, [number, number, number]> = {
-  Matz: [18, 2, 2],
-  Take: [12, 1, 1],
-  Ume: [9, 1, 3]
+  Biwa: [30, 25, 25],
+  Gold: [12, 1, 1],
+  Silver: [9, 1, 3]
 }
 
 function isSponsorType (type: unknown): type is keyof typeof sponsors {
@@ -18,6 +18,7 @@ function isSponsorType (type: unknown): type is keyof typeof sponsors {
 export const Sponsor = () => {
   const type = new URLSearchParams(location.search).get('type');
   if (!isSponsorType(type)) return null;
+  const isSilver = type === 'Silver';
   return <section
     style={{
       backgroundImage: `url(${background})`,
@@ -35,7 +36,7 @@ export const Sponsor = () => {
   <section style={{
     marginTop: '4vh',
     width: '70vw',
-    height: '80vh',
+    height: `${isSilver ? 30 : 80}vh`,
     display: 'flex',
     alignItems: 'center',
   }}>
@@ -43,7 +44,7 @@ export const Sponsor = () => {
     {sponsors[type].map((sponsor) => (
       <img
         key={sponsor}
-        src={`https://regional.rubykaigi.org/kansai08/sponsors/${sponsor}`}
+        src={`https://regional.rubykaigi.org/kansai09/sponsors/${sponsor}`}
         alt={sponsor}
         style={{
           padding: '0.5vw',
@@ -58,5 +59,37 @@ export const Sponsor = () => {
     ))}
     </div>
   </section>
+  {
+    isSilver && <>
+    <h1  style={{
+    margin: 0,
+    paddingTop: '4vh',
+    fontSize: '4.5vw'
+  }}>Tool Sponsor</h1>
+    <section style={{
+    marginTop: '4vh',
+    width: '70vw',
+    height: `${isSilver ? 30 : 80}vh`,
+    display: 'flex',
+    alignItems: 'center',
+  }}>
+      <div>
+        <img
+          src={'https://regional.rubykaigi.org/kansai09/sponsors/esa.png'}
+          alt="esa"
+          style={{
+            padding: '0.5vw',
+            backgroundColor: 'white',
+            width: `9vw`,
+            height: `9vw`,
+            objectFit: 'contain',
+            margin: `1vw 3vw`,
+            borderRadius: '1vw',
+          }}
+        />
+      </div>
+    </section>
+    </>
+  }
   </section>
 };
