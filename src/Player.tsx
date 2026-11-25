@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FileInfo } from "./libs/files";
+import { incrementPlayCount } from "./libs/playCount";
 
 const futa = '/movie-player/futa.html';
 
@@ -24,6 +25,14 @@ export const Player = () => {
     setCurrentIndex((currentIndex + 1) % senario.length);
   }
 
+  // 蓋や差し込み動画からループに戻る際に、元々表示していたコンテンツを最初からやり直すためのカウンタ
+  const [resumeCount, setResumeCount] = useState(0);
+  const resume = () => {
+    injected.current = null;
+    setForcedVideoUrl(null);
+    setResumeCount(prev => prev + 1);
+  }
+
   useEffect(() => {
     const target = senario[currentIndex];
       if (target.type === 'video') {
@@ -31,6 +40,7 @@ export const Player = () => {
             const video = document.querySelector<HTMLVideoElement>('#video-'+ target.id);
             if (video) {
               video.playbackRate = 1.0;
+              video.currentTime = 0;
               video.play();
             }
         } catch {}
@@ -43,9 +53,10 @@ export const Player = () => {
             8 
           :defaultDisplayDurationSec
         : defaultDisplayDurationSec 
-        window.setTimeout(next, durationSec * 1000);
+        const timer = window.setTimeout(next, durationSec * 1000);
+        return () => window.clearTimeout(timer);
       }
-  }, [currentIndex]);
+  }, [currentIndex, resumeCount]);
 
   const [forcedVideoUrl, setForcedVideoUrl] = useState<string | null>(null);
 
@@ -55,9 +66,8 @@ export const Player = () => {
     event.currentTarget.play();
     event.currentTarget.onended = () => {
       window.setTimeout(() => {
-        injected.current = null;
-        setForcedVideoUrl(null);
-        next();
+        if (injected.current !== 'video') return;
+        resume();
       }, 10 * 1000)
     }
   }
@@ -92,9 +102,7 @@ export const Player = () => {
         injected.current = 'futa';
         setForcedVideoUrl(futa);
       } else if (event.data.action === 'default' && injected.current) {
-        injected.current = null;
-        setForcedVideoUrl(null);
-        next();
+        resume();
       }
     }
     window.addEventListener("message", handler)
@@ -122,7 +130,10 @@ export const Player = () => {
             }} />
           }
           case 'video': {
-            return <video {...commonProps} style={{width: '100vw', height: '100vh', display}} onEnded={next} />
+            return <video {...commonProps} style={{width: '100vw', height: '100vh', display}} onEnded={() => {
+              incrementPlayCount(target.url);
+              next();
+            }} />
           }
           case 'website': {
             return <iframe {...commonProps} style={{width: '100vw', height: '100vh', display}}/>
