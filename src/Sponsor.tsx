@@ -11,6 +11,32 @@ const sizes: Record<keyof typeof sponsors, [number, number, number]> = {
   Silver: [9, 1, 3]
 }
 
+const sponsorImageBaseUrl = 'https://regional.rubykaigi.org/kansai09/sponsors/';
+
+const headingStyle = {
+  margin: 0,
+  paddingTop: '4vh',
+  fontSize: '4.5vw'
+} as const;
+
+const logoListStyle = (heightVh: number) => ({
+  marginTop: '4vh',
+  width: '70vw',
+  height: `${heightVh}vh`,
+  display: 'flex',
+  alignItems: 'center',
+} as const);
+
+const logoStyle = ([size, marginY, marginX]: [number, number, number]) => ({
+  padding: '0.5vw',
+  backgroundColor: 'white',
+  width: `${size}vw`,
+  height: `${size}vw`,
+  objectFit: 'contain',
+  margin: `${marginY}vw ${marginX}vw`,
+  borderRadius: '1vw',
+} as const);
+
 function isSponsorType (type: unknown): type is keyof typeof sponsors {
   return typeof type === 'string' && type in sponsors;
 }
@@ -27,65 +53,28 @@ export const Sponsor = () => {
       height: '100vh',
       color: 'rgb(246,246,246)'
     }}
-  ><h1 style={{
-    margin: 0,
-    paddingTop: '4vh',
-    fontSize: '4.5vw'
-  }}
-  >{type} Sponsors</h1>
-  <section style={{
-    marginTop: '4vh',
-    width: '70vw',
-    height: `${isSilver ? 30 : 80}vh`,
-    display: 'flex',
-    alignItems: 'center',
-  }}>
+  ><h1 style={headingStyle}>{type} Sponsors</h1>
+  <section style={logoListStyle(isSilver ? 30 : 80)}>
     <div>
     {sponsors[type].map((sponsor) => (
       <img
         key={sponsor}
-        src={`https://regional.rubykaigi.org/kansai09/sponsors/${sponsor}`}
+        src={sponsorImageBaseUrl + sponsor}
         alt={sponsor}
-        style={{
-          padding: '0.5vw',
-          backgroundColor: 'white',
-          width: `${sizes[type][0]}vw`,
-          height: `${sizes[type][0]}vw`,
-          objectFit: 'contain',
-          margin: `${sizes[type][1]}vw ${sizes[type][2]}vw`,
-          borderRadius: '1vw',
-        }}
+        style={logoStyle(sizes[type])}
       />
     ))}
     </div>
   </section>
   {
     isSilver && <>
-    <h1  style={{
-    margin: 0,
-    paddingTop: '4vh',
-    fontSize: '4.5vw'
-  }}>Tool Sponsor</h1>
-    <section style={{
-    marginTop: '4vh',
-    width: '70vw',
-    height: `${isSilver ? 30 : 80}vh`,
-    display: 'flex',
-    alignItems: 'center',
-  }}>
+    <h1 style={headingStyle}>Tool Sponsor</h1>
+    <section style={logoListStyle(30)}>
       <div>
         <img
-          src={'https://regional.rubykaigi.org/kansai09/sponsors/esa.png'}
+          src={sponsorImageBaseUrl + 'esa.png'}
           alt="esa"
-          style={{
-            padding: '0.5vw',
-            backgroundColor: 'white',
-            width: `9vw`,
-            height: `9vw`,
-            objectFit: 'contain',
-            margin: `1vw 3vw`,
-            borderRadius: '1vw',
-          }}
+          style={logoStyle(sizes.Silver)}
         />
       </div>
     </section>
