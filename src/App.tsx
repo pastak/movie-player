@@ -158,6 +158,7 @@ function App() {
         }}>Tech Conf 2024</button> */}
         <h3>ファイルを登録する</h3>
         <input type='file' multiple onChange={onChangeFiles}/>
+        {/*
         <h3>
           保存済みのファイルを登録する
         </h3>
@@ -178,6 +179,7 @@ function App() {
           </select>
           <button>追加</button>
         </form>
+        */}
         <h3>お知らせを挿入する</h3>
         <button onClick={handleInsertNotice}>挿入する</button>
         <h3>スポンサー表示を挿入する</h3>
