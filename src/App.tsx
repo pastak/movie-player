@@ -45,9 +45,31 @@ const savedVideos: [string, string][] = [
   ['hireroo.mp4', 'ハイヤールー'],
 ];
 
+const leaderboardUrl = 'https://perlbatross.kayac.com/contest/2026tokyo/broadcast/leaderboard';
+const leaderboardDurationSec = 15;
+// 初期状態で、リーダーボードを挟むまでに流すCMの本数
+const defaultVideoBlocks = [4, 4, 5];
+
+// 初期状態のシナリオ。CMを数本ずつ流し、その合間にリーダーボードを表示する
+function createDefaultFiles(): FileInfo[] {
+  const files: FileInfo[] = [];
+  let index = 0;
+  for (const count of defaultVideoBlocks) {
+    for (const [name] of savedVideos.slice(index, index + count)) {
+      files.push({url: '/video/' + name, id: crypto.randomUUID(), type: 'video'});
+    }
+    index += count;
+    files.push({url: leaderboardUrl, id: crypto.randomUUID(), type: 'website', durationSec: leaderboardDurationSec});
+  }
+  return files;
+}
+
+// 一度も登録内容を保存していなければ、初期状態のシナリオから始める
 function loadFiles(): FileInfo[] {
   try {
-    const data = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    const saved = localStorage.getItem(storageKey);
+    if (saved === null) return createDefaultFiles();
+    const data = JSON.parse(saved);
     return Array.isArray(data) ? data : [];
   } catch {
     return [];
@@ -159,9 +181,9 @@ function App() {
   const handleInsertSponsors = (e: React.SyntheticEvent) => {
     e.preventDefault()
     addFiles(
-      website('/movie-player/sponsor.html?type=Biwa'),
-      website('/movie-player/sponsor.html?type=Gold'),
-      website('/movie-player/sponsor.html?type=Silver'),
+      website('/movie-player/sponsor.html?type=perl'),
+      website('/movie-player/sponsor.html?type=platinum-gold'),
+      website('/movie-player/sponsor.html?type=silver-bronze'),
     );
   }
 
@@ -206,6 +228,10 @@ function App() {
           </li>)
         }
         </ol>
+        <button onClick={() => {
+          if (!confirm('登録されたコンテンツを全て消して、初期状態に戻しますか？')) return;
+          setFiles(() => createDefaultFiles());
+        }}>初期状態に戻す</button>
         <button onClick={() => {
           if (!confirm('全ての動画の再生回数をリセットしますか？')) return;
           resetPlayCounts();

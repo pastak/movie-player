@@ -25,6 +25,7 @@ function parseSenario(): FileInfo[] | null {
 
 // 動画以外のコンテンツを表示し続ける秒数
 function getDisplayDurationSec(target: FileInfo): number {
+  if ('durationSec' in target && target.durationSec) return target.durationSec;
   if (target.type === 'website' && target.url.includes('sponsor.html')) {
     if (target.url.includes('Matz')) return 12;
     if (target.url.includes('Take')) return 10;
