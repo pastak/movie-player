@@ -121,12 +121,6 @@
   text-overflow: ellipsis;
 }
 
-.score {
-  flex: none;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-variant-numeric: tabular-nums;
-}
-
 .qr {
   flex: none;
   aspect-ratio: 1;

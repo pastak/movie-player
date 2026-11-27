@@ -33,7 +33,6 @@ export const Display = () => {
             ranking.map((entry, index) => <li key={entry.id}>
               <span className={styles.rank}>{index + 1}位</span>
               <span className={styles.name}>{entry.name}</span>
-              <span className={styles.score}>{entry.score} pt</span>
             </li>)
           }
         </ol>
