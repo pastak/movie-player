@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import logo from './assets/logo-horizontal.png';
+import { YapcBackground, yapcColors, yapcFontFamily } from './YapcBackground';
 
 const endpoint = 'https://script.google.com/macros/s/AKfycbxT-x70e0ZKzDWAY8EN0zBqCL5jr8eOPBYazA30E8UvoQSmkbBz8VbvYgmJeY01UrL5oQ/exec'
 
@@ -60,12 +60,17 @@ export const Slide = () => {
   return <section style={{
     width: '100vw',
     height: '100vh',
-    backgroundColor: 'rgb(246,246,246)',
-    color: 'black',
-    borderTop: '4vh solid rgb(10,29,76)'
+    boxSizing: 'border-box',
+    overflow: 'hidden',
+    backgroundColor: yapcColors.cream,
+    color: yapcColors.ink,
+    fontFamily: yapcFontFamily,
   }}>
+    <YapcBackground />
+    {/* 上端の図形に重ならないよう、見出しを少し下げる */}
+    <div style={{position: 'relative', zIndex: 1}}>
     <h1 style={{
-      paddingTop: '6vh',
+      paddingTop: '11vh',
       paddingLeft: '8vw',
       margin: 0,
       textAlign: 'left',
@@ -114,16 +119,6 @@ export const Slide = () => {
         }
       </div>
     }
-    <footer style={{
-      background: 'rgb(10,29,76)',
-      height: '8vh',
-      position: 'fixed',
-      bottom: 0,
-      width: '100vw',
-      textAlign: 'left',
-      paddingLeft: '1vw',
-      display: 'flex',
-      alignItems: 'center'
-    }}><img src={logo} style={{height: '6vh'}} /></footer>
+    </div>
   </section>
 }

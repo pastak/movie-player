@@ -26,13 +26,10 @@
   box-sizing: border-box;
 }
 
-/* 背景の図形。画面の外周に置き、パネルの後ろに敷く */
-.shape {
-  position: absolute;
-  pointer-events: none;
-}
-
-.screen > :not(.shape) {
+/* 背景の図形（YapcBackground）より手前に出す */
+.capture,
+.panel,
+.side {
   position: relative;
   z-index: 1;
 }

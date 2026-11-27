@@ -1,0 +1,6 @@
+/* 図形は画面の外周に置き、中身の後ろに敷く */
+.shape {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+}
