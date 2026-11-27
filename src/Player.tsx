@@ -12,7 +12,11 @@ const fullScreenStyle = {width: '100vw', height: '100vh'} as const;
 
 // ループを中断して表示しているもの
 // key は同じ動画を続けて差し込んだ場合にも再生し直すためのもの
-type Injected = Readonly<{type: 'futa'} | {type: 'video', url: string, key: string}>;
+type Injected = Readonly<
+  | {type: 'futa'}
+  | {type: 'video', url: string, key: string}
+  | {type: 'website', url: string}
+>;
 
 function parseSenario(): FileInfo[] | null {
   try {
@@ -97,6 +101,9 @@ const SenarioPlayer: React.FC<{senario: FileInfo[]}> = ({senario}) => {
         case 'futa':
           setInjected({type: 'futa'});
           break;
+        case 'website':
+          setInjected({type: 'website', url: message.url});
+          break;
         case 'default':
           setInjected(null);
           break;
@@ -161,6 +168,9 @@ const SenarioPlayer: React.FC<{senario: FileInfo[]}> = ({senario}) => {
         }}
         onEnded={() => setInjectedEnded(true)}
       />
+    }
+    {
+      injected?.type === 'website' && <iframe key='injected-website' src={injected.url} style={{...fullScreenStyle, display: 'block'}} />
     }
       <iframe key='futa' src={futa} style={{...fullScreenStyle, display: showFuta ? 'block' : 'none'}} />
   </>
