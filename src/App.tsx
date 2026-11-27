@@ -28,6 +28,23 @@ const Preview: React.FC<{
 
 const storageKey = 'data';
 
+// /video/ 以下に置いてある動画。[ファイル名, 表示名]
+const savedVideos: [string, string][] = [
+  ['cloudflare.mp4', 'Cloudflare Japan'],
+  ['flatt-security.mp4', 'GMO Flatt Security'],
+  ['tebiki.mp4', 'Tebiki'],
+  ['sakura-internet.mp4', 'さくらインターネット'],
+  ['sixapart.mp4', 'シックス・アパート'],
+  ['timeleap.mp4', 'タイムリープ'],
+  ['findy.mp4', 'ファインディ'],
+  ['carta-holdings.mp4', 'CARTA HOLDINGS'],
+  ['hacomono.mp4', 'hacomono'],
+  ['hellocloud.mp4', 'HelloCloud'],
+  ['crosstech-management.mp4', 'クロステックマネジメント（京都芸術大学）'],
+  ['dena.mp4', 'ディー・エヌ・エー'],
+  ['hireroo.mp4', 'ハイヤールー'],
+];
+
 function loadFiles(): FileInfo[] {
   try {
     const data = JSON.parse(localStorage.getItem(storageKey) || '[]');
@@ -158,28 +175,15 @@ function App() {
         }}>Tech Conf 2024</button> */}
         <h3>ファイルを登録する</h3>
         <input type='file' multiple onChange={onChangeFiles}/>
-        {/*
         <h3>
           保存済みのファイルを登録する
         </h3>
         <form onSubmit={handleSelectFile}>
           <select ref={fileSelectRef}>
-            <option value='NEWTON.mp4'>NEWTON.mp4</option>
-            <option value='brand.mp4'>brand.mp4</option>
-            <option value='minna_no_market.mp4'>minna_no_market.mp4</option>
-            <option value='nishiyama-interview.mp4'>nishiyama-interview.mp4</option>
-            <option value='pastak-interview.mp4'>pastak-interview.mp4</option>
-            <option value='daiiz-interview.mp4'>daiiz-interview.mp4</option>
-            <option value='siroca.mp4'>siroca.mp4</option>
-            <option value='help-ape01.mp4'>help-ape01.mp4</option>
-            <option value='help-ape-EC.mp4'>help-ape-EC.mp4</option>
-            <option value='helpfeel-com-op-info.mp4'>helpfeel-com-op-info.mp4</option>
-            <option value='Helpfeel_community_digest.mp4'>Helpfeel_community_digest.mp4</option> 
-            <option value='techconf2024-coming.mp4'>techconf2024-coming.mp4</option>
+            {savedVideos.map(([name, label]) => <option key={name} value={name}>{label}（{name}）</option>)}
           </select>
           <button>追加</button>
         </form>
-        */}
         <h3>お知らせを挿入する</h3>
         <button onClick={handleInsertNotice}>挿入する</button>
         <h3>スポンサー表示を挿入する</h3>
