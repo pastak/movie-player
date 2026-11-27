@@ -267,11 +267,13 @@ function App() {
           <button onClick={sendToPlayer({action: 'default'})}>動画ループに戻す</button>
           <button onClick={sendToPlayer({action: 'reload'})}>再読み込み</button>
         </section>
+      {/* 差し替え用の動画が決まるまで、一旦表示しない
       <section>
         <h3>動画を差し替える</h3>
         <button onClick={sendToPlayer({action: 'injection', url: 'https://i.gyazo.com/f26748fe9380c913ff3779f07d2ddf59.mp4'})}>1分間フィードバック</button>
         <button onClick={sendToPlayer({action: 'injection', url: 'https://i.gyazo.com/0ebf06b5e7b889001f84362bbbc0085c.mp4'})}>次の会場ルーレット</button>
-      </section></> 
+      </section>
+      */}</> 
       }
     </div>
   )
