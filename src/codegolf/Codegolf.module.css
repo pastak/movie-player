@@ -16,7 +16,9 @@
   gap: var(--gap);
   background: var(--cream);
   color: var(--ink);
-  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  /* ヒラギノ丸ゴには太字が無く細く見えるので、読み込めないときは太字のあるヒラギノ角ゴにする */
+  font-family: "Zen Maru Gothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  font-weight: 700;
   overflow: hidden;
 }
 
@@ -67,7 +69,7 @@
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-variant-numeric: tabular-nums;
   font-size: 5.8vw;
-  font-weight: bold;
+  font-weight: 800;
   line-height: 1.1;
 }
 
@@ -81,7 +83,7 @@
 
 .challengerName {
   font-size: 3.6vw;
-  font-weight: bold;
+  font-weight: 900;
   line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
