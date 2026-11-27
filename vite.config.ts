@@ -14,6 +14,8 @@ export default defineConfig({
         slide: 'slide.html',
         sponsor: 'sponsor.html',
         futa: 'futa.html',
+        codegolf: 'codegolf.html',
+        codegolfAdmin: 'codegolf-admin.html',
       }
     }
   }

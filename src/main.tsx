@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
+import { Control as CodegolfAdmin } from './codegolf/Control'
+import { Display as CodegolfDisplay } from './codegolf/Display'
 import { Overlay } from './Overlay'
 import { Player } from './Player'
 import { Slide } from './Slide'
@@ -17,6 +19,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       location.pathname === '/movie-player/video-with-notice.html' ? <VideoWithNotice />:
       location.pathname.startsWith('/movie-player/slide.html') ? <Slide />:
       location.pathname.startsWith('/movie-player/sponsor.html') ? <Sponsor />:
+      location.pathname.startsWith('/movie-player/codegolf.html') ? <CodegolfDisplay />:
+      location.pathname.startsWith('/movie-player/codegolf-admin.html') ? <CodegolfAdmin />:
       null
     }
   </React.StrictMode>,

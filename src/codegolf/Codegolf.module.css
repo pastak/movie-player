@@ -1,0 +1,194 @@
+.screen {
+  --navy: rgb(10, 29, 76);
+  --paper: rgb(246, 246, 246);
+  --line: rgba(246, 246, 246, 0.35);
+  --accent: #ffd166;
+  --gap: 1.5vw;
+
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  padding: var(--gap);
+  display: grid;
+  grid-template-columns: 1fr 1fr 24vw;
+  grid-template-rows: auto 1fr;
+  gap: var(--gap);
+  background: var(--navy);
+  color: var(--paper);
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  overflow: hidden;
+}
+
+.screen * {
+  box-sizing: border-box;
+}
+
+/* 画面合成で挑戦者の画面を重ねる領域 */
+.capture {
+  grid-column: 1 / 3;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.panel {
+  border: 0.15vw solid var(--line);
+  border-radius: 0.6vw;
+  background: rgba(246, 246, 246, 0.06);
+  padding: 1vw 1.4vw;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.label {
+  font-size: 1.5vw;
+  font-weight: bold;
+  line-height: 1.2;
+  opacity: 0.8;
+}
+
+.timerValue {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 6.4vw;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+.timerWarning .timerValue {
+  color: var(--accent);
+}
+
+.timerFinished .timerValue {
+  color: #ff6b6b;
+}
+
+.challengerName {
+  font-size: 3.6vw;
+  font-weight: bold;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.side {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-height: 0;
+}
+
+.ranking {
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.rankingList {
+  list-style: none;
+  margin: 0.6vw 0 0;
+  padding: 0;
+}
+
+.rankingList li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6vw;
+  font-size: 1.7vw;
+  line-height: 1.75;
+}
+
+.rankingList li:first-child {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.rank {
+  flex: none;
+  width: 3.2vw;
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.score {
+  flex: none;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.qr {
+  flex: none;
+  aspect-ratio: 1;
+  border-radius: 0.6vw;
+  background: #fff;
+  overflow: hidden;
+}
+
+.qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 操作画面 */
+.control {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 16px 24px 48px;
+  background: #fff;
+  color: #213547;
+  text-align: left;
+  overflow: auto;
+  height: 100vh;
+}
+
+.control h3 {
+  margin: 24px 0 8px;
+}
+
+.control input[type="text"],
+.control input[type="number"] {
+  font-size: 1em;
+  padding: 0.4em 0.6em;
+  margin-right: 8px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #fff;
+  color: #213547;
+}
+
+.control input[type="number"] {
+  width: 5em;
+}
+
+.control button {
+  margin-right: 8px;
+  background-color: #f0f0f0;
+  color: #213547;
+}
+
+.control ol {
+  padding-left: 1.5em;
+}
+
+.control li {
+  margin: 4px 0;
+}
+
+.controlTimer {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 2em;
+  font-weight: bold;
+  margin-right: 16px;
+}
