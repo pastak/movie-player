@@ -1,26 +1,38 @@
 .screen {
-  --navy: rgb(10, 29, 76);
-  --paper: rgb(246, 246, 246);
-  --line: rgba(246, 246, 246, 0.35);
-  --accent: #ffd166;
-  --gap: 1.5vw;
+  /* YAPC::Tokyo 2026 映像用素材の配色 */
+  --ink: #222222;
+  --cream: #fffaed;
+  --orange: #ea5520;
+  --gap: 2vw;
 
   box-sizing: border-box;
+  position: relative;
   width: 100vw;
   height: 100vh;
   padding: var(--gap);
   display: grid;
-  grid-template-columns: 1fr 1fr 24vw;
+  grid-template-columns: 1fr 1fr 23vw;
   grid-template-rows: auto 1fr;
   gap: var(--gap);
-  background: var(--navy);
-  color: var(--paper);
-  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
   overflow: hidden;
 }
 
 .screen * {
   box-sizing: border-box;
+}
+
+/* 背景の図形。画面の外周に置き、パネルの後ろに敷く */
+.shape {
+  position: absolute;
+  pointer-events: none;
+}
+
+.screen > :not(.shape) {
+  position: relative;
+  z-index: 1;
 }
 
 /* 画面合成で挑戦者の画面を重ねる領域 */
@@ -31,10 +43,9 @@
 }
 
 .panel {
-  border: 0.15vw solid var(--line);
-  border-radius: 0.6vw;
-  background: rgba(246, 246, 246, 0.06);
-  padding: 1vw 1.4vw;
+  border-radius: 0.8vw;
+  background: #fff;
+  padding: 0.8vw 1.4vw;
   min-width: 0;
   min-height: 0;
   display: flex;
@@ -47,29 +58,52 @@
   font-size: 1.5vw;
   font-weight: bold;
   line-height: 1.2;
-  opacity: 0.8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .timerValue {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   font-variant-numeric: tabular-nums;
-  font-size: 6.4vw;
+  font-size: 5.8vw;
   font-weight: bold;
   line-height: 1.1;
 }
 
 .timerWarning .timerValue {
-  color: var(--accent);
+  color: var(--orange);
 }
 
 .timerFinished .timerValue {
-  color: #ff6b6b;
+  color: #d0021b;
 }
 
 .challengerName {
   font-size: 3.6vw;
   font-weight: bold;
   line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 挑戦者の紹介文。3行程度の箇条書き */
+.intro {
+  list-style: none;
+  margin: 0.3vw 0 0;
+  padding: 0;
+  font-size: 1.5vw;
+  font-weight: bold;
+  line-height: 1.45;
+  overflow: hidden;
+}
+
+.intro li::before {
+  content: "・";
+}
+
+.intro li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -100,12 +134,12 @@
   align-items: baseline;
   gap: 0.6vw;
   font-size: 1.7vw;
-  line-height: 1.75;
+  font-weight: bold;
+  line-height: 1.65;
 }
 
 .rankingList li:first-child {
-  color: var(--accent);
-  font-weight: bold;
+  color: var(--orange);
 }
 
 .rank {
@@ -124,7 +158,7 @@
 .qr {
   flex: none;
   aspect-ratio: 1;
-  border-radius: 0.6vw;
+  border-radius: 0.8vw;
   background: #fff;
   overflow: hidden;
 }
@@ -164,6 +198,20 @@
 
 .control input[type="number"] {
   width: 5em;
+}
+
+.control textarea {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  margin: 4px 0 8px;
+  padding: 0.4em 0.6em;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #fff;
+  color: #213547;
+  font: inherit;
 }
 
 .control button {

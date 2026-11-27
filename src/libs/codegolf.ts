@@ -20,6 +20,10 @@ export type CodegolfTimer = Readonly<{
 export type CodegolfState = Readonly<{
   qrText: string,
   challenger: string,
+  // 挑戦者の紹介文。1行が箇条書きの1項目になる
+  intro: string,
+  // true なら挑戦者名の代わりに紹介文を表示する
+  showIntro: boolean,
   entries: readonly CodegolfEntry[],
   // true ならスコアが小さい方を上位にする
   lowerIsBetter: boolean,
@@ -29,6 +33,8 @@ export type CodegolfState = Readonly<{
 const defaultState: CodegolfState = {
   qrText: '',
   challenger: '',
+  intro: '',
+  showIntro: false,
   entries: [],
   lowerIsBetter: false,
   timer: {durationSec: 600, remainingSec: 600, endAt: null},
@@ -129,6 +135,10 @@ export function useCodegolfDisplayState(): CodegolfState {
 export function getRemainingSec(timer: CodegolfTimer, now: number): number {
   if (timer.endAt === null) return timer.remainingSec;
   return Math.max(0, Math.ceil((timer.endAt - now) / 1000));
+}
+
+export function getIntroLines(state: CodegolfState): string[] {
+  return state.intro.split('\n').map(line => line.trim()).filter(line => line !== '');
 }
 
 export function formatTime(sec: number): string {

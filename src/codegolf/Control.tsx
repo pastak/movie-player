@@ -80,6 +80,17 @@ export const Control = () => {
       value={state.challenger}
       onChange={e => update(prev => ({...prev, challenger: e.target.value}))}
     />
+    <div style={{marginTop: 8}}>紹介文（1行が箇条書きの1項目。3行程度まで）</div>
+    <textarea
+      rows={3}
+      value={state.intro}
+      onChange={e => update(prev => ({...prev, intro: e.target.value}))}
+    />
+    <div>
+      <button onClick={() => update(prev => ({...prev, showIntro: false}))} disabled={!state.showIntro}>名前を表示</button>
+      <button onClick={() => update(prev => ({...prev, showIntro: true}))} disabled={state.showIntro}>紹介文を表示</button>
+      <span>{state.showIntro ? '紹介文を表示中' : '名前を表示中'}</span>
+    </div>
 
     <h3>ランキング</h3>
     <form onSubmit={addEntry}>
