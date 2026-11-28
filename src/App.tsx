@@ -121,31 +121,53 @@ function App() {
   const sendToPlayer = (message: PlayerMessage) => () => windowProxy?.postMessage(message);
 
   const play = (type: 'primary' | 'secondary') => async () => {
+    const deniedMessage = 'ウィンドウ管理の権限が許可されていません。アドレスバーのサイト設定から「ウィンドウ管理」を許可してください。';
     try {
       const state = await getWindowManagementPermissionState();
-      if (state === 'granted') {
-        // @ts-expect-error
-        const screens = (await window.getScreenDetails()).screens;
-        // @ts-expect-error
-        const targetScreen = screens.find(screen => type === 'primary' ? screen.isPrimary : !screen.isPrimary)
-        if (!targetScreen) return;
-        // await document.body.requestFullscreen({ screen: targetScreen });
-        const features = [
-          `left=${targetScreen.availLeft}`,
-          `top=${targetScreen.availTop}`,
-          `width=${targetScreen.availWidth}`,
-          `height=${targetScreen.availHeight}`,
-          `menubar=no`,
-          `toolbar=no`,
-          `location=no`,
-          `status=no`,
-          `resizable=yes`,
-          `scrollbars=no`,
-          'fullscreen',
-        ].join(",");
-        const w = window.open(playerUrl, Math.random().toString(), features);
-        setWindowProxy(w);
+      if (state === 'denied') {
+        alert(deniedMessage);
+        return;
       }
+      if (state !== 'granted' && state !== 'prompt') {
+        alert(`このブラウザではウィンドウ管理を使えません。(${state})`);
+        return;
+      }
+      // 権限が未許可（prompt）のときは、getScreenDetails() の呼び出しで許可ダイアログが出る
+      let screens;
+      try {
+        // @ts-expect-error
+        screens = (await window.getScreenDetails()).screens;
+      } catch {
+        alert(deniedMessage);
+        return;
+      }
+      // @ts-expect-error
+      const targetScreen = screens.find(screen => type === 'primary' ? screen.isPrimary : !screen.isPrimary)
+      if (!targetScreen) {
+        alert(type === 'primary' ? 'プライマリの画面が見つかりません。' : '2枚目の画面が見つかりません。');
+        return;
+      }
+      // await document.body.requestFullscreen({ screen: targetScreen });
+      const features = [
+        `left=${targetScreen.availLeft}`,
+        `top=${targetScreen.availTop}`,
+        `width=${targetScreen.availWidth}`,
+        `height=${targetScreen.availHeight}`,
+        `menubar=no`,
+        `toolbar=no`,
+        `location=no`,
+        `status=no`,
+        `resizable=yes`,
+        `scrollbars=no`,
+        'fullscreen',
+      ].join(",");
+      const w = window.open(playerUrl, Math.random().toString(), features);
+      if (!w) {
+        // 許可ダイアログに答えている間にクリックの有効期限が切れると、ポップアップがブロックされる
+        alert('プレイヤーのウィンドウを開けませんでした。もう一度ボタンを押してください。');
+        return;
+      }
+      setWindowProxy(w);
     } catch {
       // nothing
     }
